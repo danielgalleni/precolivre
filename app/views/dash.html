@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dash</title>
+</head>
+<body>
+  <h1>{{ quantidade }}</h1>
+  <ul>
+    {% for item in items %}
+      <h2>{{ item.title }}</h2>
+      <li>{{ item.price }} {{ item.currency_id }}</li>
+      <li>{{ item.permalink }}</li>
+      <hr>
+    {% endfor %}
+  </ul>
+</body>
+</html>

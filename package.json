@@ -1,0 +1,47 @@
+{
+  "name": "precolivre",
+  "version": "1.0.0",
+  "description": "Aplicação para comparar preços",
+  "private": true,
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "gulp",
+    "test": "mocha -R spec ./test/*.js",
+    "lint": "eslint ./ || exit 0",
+    "lint-fix": "eslint ./ --fix || exit 0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "cheerio": "^0.22.0",
+    "connect-redis": "^3.2.0",
+    "cookie-parser": "^1.4.3",
+    "debug": "^2.2.0",
+    "express": "^4.14.1",
+    "express-session": "^1.15.2",
+    "mercadolibre": "0.0.13",
+    "mongoose": "^4.8.1",
+    "morgan": "^1.8.0",
+    "nunjucks": "^3.0.0",
+    "redis": "^2.7.1",
+    "serve-favicon": "^2.3.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.7",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "fs": "0.0.1-security",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.1.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-stylus": "^2.5.0",
+    "https": "^1.0.0",
+    "mocha": "^3.1.0",
+    "supertest": "^3.0.0"
+  }
+}
