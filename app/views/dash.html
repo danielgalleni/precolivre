@@ -57,7 +57,7 @@
           </div>
           <ul>
             {% for item in items %}
-            <li class="produto"><p><a href="/{{ item._id }}" class="nome-produto"><span class="preco">{{ item.price }} {{ item.currency }}</span> <span class="produto-busca">{{ item.name }}</span></a> <a href="{{ item.url }}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></p></li>
+            <li class="produto"><p><a href="/dashboard/item/{{ item._id }}" class="nome-produto"><span class="preco">{{ item.price }} {{ item.currency }} {% if item.cheaper_price %}<span style="color:green;">(Melhor oferta: {{ item.cheaper_price }} {{ item.currency }})</span> {% endif %}</span><span class="produto-busca">{{ item.name }}</span></a> <a href="{{ item.url }}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></p></li>
             {% else %}
             <li class="grey-text center"><p>Você ainda não tem produtos sincronizados!</p></li>
             {% endfor %}

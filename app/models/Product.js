@@ -8,14 +8,9 @@ const ProductSchema = new Schema({
   user_id: Number,
   name: String,
   price: Number,
+  cheaper_price: Number,
   currency: String,
   url: String,
-  outside_compare: [{
-    name: String,
-    url: String,
-    price: Number,
-    currency: String
-  }],
   meli_compare: [{
     meli_id: String,
     name: String,

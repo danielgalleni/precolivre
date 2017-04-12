@@ -7,6 +7,8 @@ module.exports = (app) => {
   app.get('/login', UserController.login);
   app.get('/logout', UserController.logout);
   app.get('/dashboard', isUser, ProductsController.index);
+  app.get('/dashboard/item/:prod_id', isUser, ProductsController.showProduct);
+  app.post('/dashboard/item/:prod_id', isUser, ProductsController.insertCompare);
   app.get('/dashboard/sync', isUser, ProductsController.sync);
 };
 
