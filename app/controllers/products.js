@@ -10,20 +10,26 @@ exports.index = (req, res) => {
     user_id: req.session.user_id,
     user_token: req.session.user_access_token
   };
-  res.send('<a href="/logout">Sair</a><a href="/dashboard/sync">Sync</a>');
+  Product.find({ user_id: global_variable.user_id }, function(err, items){
+    var qtdade = items.length;
+    res.render('dash', { items: items, qtdProdutos: qtdade });
+  });
 }
 
 exports.sync = (req, res) => {
   if(!meliObject)
     return res.redirect('/dashboard');
-  meliObject.get('sites/MLB/search', { seller_id: global_variable.user_id, status: 'active' }, function(err, stats){
+  meliObject.get('sites/MLB/search', { seller_id: 7736434, status: 'active' }, function(err, stats){
     console.log(err, stats.paging.total);
     var total = stats.paging.total;
+    var _total = total;
+    var _count = 0;
     // meliObject.get('/users/'+_id+'/items/search', { limit: total }, function(err, items){
     for(var _offset=0; total>0; _offset+=200, total-= 200){
       console.log("offset: " + _offset);
-      meliObject.get('sites/MLB/search', { seller_id: global_variable.user_id, offset: _offset, limit: 200 }, function(err, items){
-        items.results.forEach(function(item){
+      meliObject.get('sites/MLB/search', { seller_id: 7736434, offset: _offset, limit: 200 }, function(err, items){
+        console.log(err, items.paging.offset);
+        items.results.forEach(function(item, index, array){
           let prod = new Product();
           prod._id = item.id;
           prod.user_id = global_variable.user_id;
@@ -32,8 +38,9 @@ exports.sync = (req, res) => {
           prod.currency = item.currency_id;
           prod.url = item.permalink;
           prod.save(function(err, newprod){
-            console.log(err, newprod);
-            if(total <= 0) res.redirect('/dashboard');
+            // console.log(err, newprod);
+            _count++;
+            if(_count == _total) res.send({ finished: true });
           });
         });
       });

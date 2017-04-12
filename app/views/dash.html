@@ -2,19 +2,87 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Dash</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Título</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <h1>{{ quantidade }}</h1>
-  <ul>
-    {% for item in items %}
-      <h2>{{ item.title }}</h2>
-      <li>{{ item.price }} {{ item.currency_id }}</li>
-      <li>{{ item.permalink }}</li>
-      <hr>
-    {% endfor %}
-  </ul>
+  <nav>
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Título</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/">Home</a></li>
+          <li><a href="/logout">Sair</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m4">
+        <a id="sync-button" href="#" class="modal-trigger card-panel center black-text" style="display:block;">
+          <i class="fa fa-refresh fa-5x" aria-hidden="true"></i>
+          <h5>Sincronizar meus produtos</h5>
+        </a>
+      </div>
+      <div class="col s12 m4">
+        <a nohref class="card-panel center black-text" style="display:block;">
+          <i class="fa fa-list fa-5x" aria-hidden="true"></i>
+          <h5>{{ qtdProdutos }} produtos adicionados</h5>
+        </a>
+      </div>
+      <div class="col s12 m4">
+        <a nohref class="card-panel center black-text" style="display:block;">
+          <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
+          <h5>Adicionar novo produto</h5>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <div class="card-panel">
+          <h3>Meus produtos</h3>
+          <ul>
+            {% for item in items %}
+            <li class="produto"><p><a href="/{{ item._id }}" class="nome-produto"><span class="preco">{{ item.price }} {{ item.currency }}</span> {{ item.name }}</a> <a href="{{ item.url }}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></p></li>
+            {% else %}
+            <li class="grey-text center"><p>Você ainda não tem produtos sincronizados!</p></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--modal-->
+  <div id="sync" class="modal">
+    <div class="modal-content center">
+      <i class="fa fa-refresh fa-5x fa-spin"></i>
+      <h3>Sincronizando dados</h3>
+      <p>Aguarde um minuto estamos procurando todos os seus produtos, isso pode levar algum tempo!</p>
+      <p>Está demorando muito? <a href="/dashboard">Clique Aqui!</a></p>
+    </div>
+  </div>
+  <!--fim-modal-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+      $('.modal').modal({
+        dismissible: false,
+        opacity: .75,
+      });
+    });
+    $('#sync-button').click(function(){
+      $('#sync').modal('open');
+      $.get( "/dashboard/sync", function(data){
+        if(data.finished) location.reload();
+      });
+    });
+  </script>
 </body>
 </html>

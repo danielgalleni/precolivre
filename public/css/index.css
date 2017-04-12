@@ -1,0 +1,38 @@
+/* amarelo meli: #fff059 */
+
+body {
+  background-color: #f0f0f0;
+}
+
+.header {
+  background-color: #fff059;
+  position: absolute;
+  height: 45%;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
+.login-card {
+  background-color: #fff;
+  border-radius: 4px;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: -150px;
+  max-width: 500px;
+  height: 300px;
+  top: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.login-card h1 {
+  font-weight: 100;
+}
+
+.login-card a {
+  width: 50%;
+  height: 80px;
+  line-height: 80px;
+}
